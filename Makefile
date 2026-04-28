@@ -9,7 +9,8 @@ ECHO_PREFIX = [make]
 ## run: Start the API server
 .PHONY: run
 run:
-	go run ./cmd/app \
+	@echo "$(ECHO_PREFIX) Starting the API server on port ${PORT}..."
+	@go run ./cmd/app \
 		-db-dsn=${DB_DSN} \
 		-port=${PORT}
 
@@ -25,7 +26,7 @@ run:
 ## db/psql: Connect to the database using psql
 .PHONY: db/psql
 db/psql:
-	psql '$(DB_DSN)'
+	@psql '$(DB_DSN)'
 
 # ==================================================================================== #
 # MIGRATIONS
