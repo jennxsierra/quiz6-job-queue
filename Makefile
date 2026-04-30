@@ -17,7 +17,25 @@ run:
 # ==================================================================================== #
 # DEMO
 # ==================================================================================== #
+.PHONY: demo/generate
+demo/generate:
+	@echo "$(ECHO_PREFIX) Generating demo data..."
+	@psql ${DB_DSN} -f sql/01_seed_sample_data.sql
 
+.PHONY: demo/updated-at
+demo/updated-at:
+	@echo "$(ECHO_PREFIX) Testing updated_at trigger..."
+	@psql '$(DB_DSN)' -f sql/02_update_test.sql
+
+.PHONY: demo/btree
+demo/btree:
+	@echo "$(ECHO_PREFIX) Testing B-Tree index queries..."
+	@psql '$(DB_DSN)' -f sql/03_btree_test.sql
+
+.PHONY: demo/gin
+demo/gin:
+	@echo "$(ECHO_PREFIX) Testing GIN index queries..."
+	@psql '$(DB_DSN)' -f sql/04_gin_test.sql
 
 # ==================================================================================== #
 # DATABASE
